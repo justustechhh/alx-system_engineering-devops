@@ -1,2 +1,12 @@
 #!/bin/bash
-ls -lt | head -n10 | awk '{print $9}'
+
+# Get the 10 newest files in the current directory
+files=$(ls -lt | grep '^-' | head -n 10)
+
+# Display the files in the desired format
+while IFS= read -r file; do
+    # Extract the file name from the ls output
+    filename=$(echo "$file" | awk '{print $9}')
+    # Display the filename
+    echo "$filename"
+done <<< "$files"
